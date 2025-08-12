@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -22,16 +23,6 @@ class UserSeeder extends Seeder
             "role"=>"admin",
         ]);
 
-        $faker = \Faker\Factory::create();
-        foreach(range(1,10) as $index) {
-            DB::table('users')->insert([
-                'name' => $faker->name,
-                'email'=> $faker->unique()->safeEmail,
-                'password' => bcrypt('password'),
-                'phone' => $faker->phoneNumber,
-                'address'=> $faker->address,
-                'is_banned'=> $faker->boolean(20),
-            ]);
-        }
+        User::factory()->count(10)->create();
     }
 }

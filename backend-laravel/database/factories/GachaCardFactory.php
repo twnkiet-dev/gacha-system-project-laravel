@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Gacha;
+use App\Models\Card;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class GachaCardFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'gacha_id' => Gacha::factory(),
+            'card_id' => Card::factory(),
+            'quantity' => fake()->numberBetween(1, 100),
+            'rate' => fake()->numberBetween(1, 100),
+            'position' => fake()->numberBetween(1, 100),
         ];
     }
 }

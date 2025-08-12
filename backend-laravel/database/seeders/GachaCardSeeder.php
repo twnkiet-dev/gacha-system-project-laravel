@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\GachaCard;
 
 class GachaCardSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class GachaCardSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        GachaCard::factory()->count(10)->create();
     }
 }
