@@ -7,23 +7,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckRole
+class RoleMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next, ...$roles)
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (!Auth::check()){
-            return redirect('/login');
+        $user = Auth::user();
+        if (! $user || ! in_array($user->role, $roles)) {
+            abort(403);
         }
-
-        if(!in_array(Auth::user()->role, $roles)){
-            abort(403,'Bạn không có quyền truy cập');
-        }
-
         return $next($request);
     }
 }
