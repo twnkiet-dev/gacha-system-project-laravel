@@ -26,8 +26,11 @@ class Gacha extends Model
     {
         return $this->hasMany(Inventory::class);
     }
-    public function card(): BelongsToMany
-    {
-        return $this->belongsToMany(Card::class, GachaCard::class);
+
+    public function cards() {
+        return $this->belongsToMany(Card::class, 'gacha_cards')
+            ->withPivot(['quantity','rate','position'])
+            ->withTimestamps()
+            ->orderBy('gacha_cards.position');
     }
 }
