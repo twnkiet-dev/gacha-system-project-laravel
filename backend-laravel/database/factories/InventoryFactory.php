@@ -4,8 +4,6 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Card;
-use App\Models\Gacha;
-use App\Models\GachaCard;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +20,6 @@ class InventoryFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'gacha_id' => GachaCard::factory(),
             'card_id' => Card::factory(),
             'obtained_at' => fake()->dateTime(),
         ];
