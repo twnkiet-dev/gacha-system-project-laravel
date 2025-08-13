@@ -17,9 +17,13 @@ class GachaCardSeeder extends Seeder
     {
         foreach(Gacha::all() as $gacha) {
             $selectedCards = Card::all()->random(rand(3, 5));
+
             $rates = $selectedCards->map(fn() => rand(1, 100))->toArray();
+
             $totalRate = array_sum($rates);
+
             $normalizedRates = array_map(fn($r) => round($r / $totalRate, 4), $rates);
+            
             foreach($selectedCards as $index => $card) {
                 $gacha->cards()->attach($card->id, [
                     'rate' => $normalizedRates[$index],
