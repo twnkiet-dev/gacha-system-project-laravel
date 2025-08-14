@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Inventory;
 
 class InventoryController extends Controller
 {
@@ -12,7 +13,11 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        //
+        $user = request()->user();
+        return Inventory::with('card')
+            ->where('user_id', $user->id)
+            ->orderByDesc('obtained_at')
+            ->get();
     }
 
     /**
@@ -20,7 +25,8 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Normally creation is via gacha draw endpoint; keeping placeholder.
+        abort(405);
     }
 
     /**
@@ -28,7 +34,12 @@ class InventoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = request()->user();
+        $item = Inventory::with('card')->findOrFail($id);
+        if ($item->user_id !== $user->id) {
+            abort(403);
+        }
+        return $item;
     }
 
     /**
@@ -36,7 +47,7 @@ class InventoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        abort(405);
     }
 
     /**
@@ -44,6 +55,6 @@ class InventoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        abort(405);
     }
 }
