@@ -47,8 +47,10 @@ class GachaCardController extends Controller
      */
     public function show(string $id)
     {
-        return GachaCard::with(['gacha','card'])->findOrFail($id);
+        $gacha = Gacha::with('cards')->findOrFail($id);
+        return response()->json($gacha);
     }
+
 
     /**
      * Update the specified resource in storage.
