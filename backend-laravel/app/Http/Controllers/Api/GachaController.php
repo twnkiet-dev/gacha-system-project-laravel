@@ -32,7 +32,8 @@ class GachaController extends Controller
      */
     public function show(string $id)
     {
-        return Gacha::find($id);
+        $gacha = Gacha::with('cards')->findOrFail($id);
+        return response()->json($gacha);
     }
 
     /**

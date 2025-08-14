@@ -17,8 +17,6 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth
 Route::get('/cards', [CardController::class, 'index']);
 Route::get('/gachas', [GachaController::class, 'index']);
 Route::get('/gachas/{id}', [GachaController::class, 'show']);
-Route::get('/gacha-cards',[GachaCardController::class,'index']);
-Route::get('/gacha-cards/{id}', [GachaCardController::class,'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', function (Request $request) {
@@ -30,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::apiResource('cards', CardController::class)->except(['index','show']);
         Route::apiResource('gachas', GachaController::class)->except(['index','show']);
-        Route::apiResource('gacha-cards', GachaCardController::class)->except(['index','show']);
+        Route::apiResource('gacha-cards', GachaCardController::class);
         Route::apiResource('users', UserController::class);
     });
 });
