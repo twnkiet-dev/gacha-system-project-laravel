@@ -23,9 +23,9 @@ class StoreUserRequest extends FormRequest
     {
         return [
             "name"=> "required|string|max:255",
-            "email"=> "required|email|unique:users,email",
+            "email"=> "required|email:rfc,dns|unique:users,email",
             "password"=> "required|string|min:8|confirmed",
-            "phone"=> "required|string|max:20",
+            "phone"=> "required|string|digits:10",
             "address"=> "required|string|max:255",
         ];
     }
