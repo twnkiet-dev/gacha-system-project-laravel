@@ -70,7 +70,7 @@ class GachaController extends Controller
         
         $user = request()->user();
         $gacha = Gacha::findOrFail($gachaId);
-        $gacha->increament('roll_count');
+        $gacha->increment('roll_count');
         $currentRollCount = $gacha->roll_count;
 
         $pool = GachaCard::where('gacha_id', $gacha->id)
@@ -114,7 +114,7 @@ class GachaController extends Controller
         }
         if(!$selected){
             foreach ($pool as $item) {
-                $acc += $item->rate;
+                $acc += (float)$item->rate;
                 if($roll <= $acc){
                     $selected = $item;
                     break;
