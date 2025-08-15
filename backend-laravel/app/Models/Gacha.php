@@ -15,6 +15,7 @@ class Gacha extends Model
     protected $fillable = [
         'name',
         'thumbnail',
+        'roll_count',
     ];
 
     public function gachaCards(): HasMany

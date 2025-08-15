@@ -25,6 +25,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/inventory', [InventoryController::class, 'index']);
 
+    // draw gacha
+    Route::post('/gachas/{gacha}/roll', [GachaController::class, 'roll']);
+
     Route::middleware('role:admin')->group(function () {
         Route::apiResource('cards', CardController::class)->except(['index','show']);
         Route::apiResource('gachas', GachaController::class)->except(['index','show']);
